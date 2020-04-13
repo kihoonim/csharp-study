@@ -1,0 +1,45 @@
+﻿akka
+{
+	system.name = "router-system"
+
+	actor
+	{
+		provider = remote
+
+		stdout-loglevel = DEBUG
+		loglevel = DEBUG
+		log-config-on-start = on        
+
+        debug 
+		{  
+              receive = on 
+              autoreceive = on
+              lifecycle = on
+              event-stream = on
+              unhandled = on
+        }
+
+		deployment
+		{
+			/BasicActors
+			{
+				# pool
+				#router = round-robin-pool
+				#nr-of-instances = 3
+
+				# group
+				router = round-robin-group
+				routees.paths = ["user/BasicActors/1", "user/BasicActors/2", "user/BasicActors/3"]
+			}
+		}
+	}
+
+	remote
+	{
+		dot-netty.tcp
+		{
+			port = 8081
+			hostname = localhost
+		}
+	}
+}

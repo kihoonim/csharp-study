@@ -1,0 +1,31 @@
+﻿akka
+{
+	system.name = "remote-node-system"
+
+	actor
+	{
+		provider = remote
+
+		stdout-loglevel = DEBUG
+		loglevel = DEBUG
+		log-config-on-start = on        
+
+        debug 
+		{  
+              receive = on 
+              autoreceive = on
+              lifecycle = on
+              event-stream = on
+              unhandled = on
+        }
+	}
+
+	remote
+	{
+		dot-netty.tcp
+		{
+			port = 8082
+			hostname = localhost
+		}
+	}
+}

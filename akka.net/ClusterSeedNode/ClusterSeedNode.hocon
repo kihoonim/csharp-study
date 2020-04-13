@@ -1,0 +1,54 @@
+﻿akka
+{
+	system.name = "cluster-system"
+
+	actor
+	{
+		provider = cluster
+
+		stdout-loglevel = DEBUG
+		loglevel = DEBUG
+		log-config-on-start = on        
+
+        debug 
+		{  
+              receive = on 
+              autoreceive = on
+              lifecycle = on
+              event-stream = on
+              unhandled = on
+        }
+
+		deployment
+		{
+			/BasicActors
+			{
+				router = round-robin-pool
+				nr-of-instance = 3
+		
+				cluster
+				{
+					enabled = on
+					allow-local-routees = on
+					use-role = basic
+					max-nr-of-instances-per-node = 1
+				}
+			}
+		}
+	}
+
+	remote
+	{
+		dot-netty.tcp
+		{
+			port = 8081
+			hostname = localhost
+		}
+	}
+
+	cluster
+	{
+        seed-nodes = ["akka.tcp://cluster-system@localhost:8081"]
+		#seed-nodes = ["akka.tcp://cluster-system@localhost:4053"]
+    }
+}

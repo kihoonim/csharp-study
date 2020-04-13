@@ -1,0 +1,41 @@
+﻿remote-address = "akka.tcp://remote-node-system@localhost:8082"
+
+akka
+{
+	system.name = "remote-deploy-system"
+
+	actor
+	{
+		provider = remote
+
+		stdout-loglevel = DEBUG
+		loglevel = DEBUG
+		log-config-on-start = on        
+
+        debug 
+		{  
+              receive = on 
+              autoreceive = on
+              lifecycle = on
+              event-stream = on
+              unhandled = on
+        }
+
+		deployment
+		{
+			/remotedeploy
+			{
+				remote = "akka.tcp://remote-node-system@localhost:8082"
+			}
+		}
+	}
+
+	remote
+	{
+		dot-netty.tcp
+		{
+			port = 8081
+			hostname = localhost
+		}
+	}
+}
