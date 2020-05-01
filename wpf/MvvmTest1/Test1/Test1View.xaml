@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="MvvmTest1.Test1.Test1View"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:base="clr-namespace:MvvmTest1"
+             xmlns:local="clr-namespace:MvvmTest1.Test1"
+             xmlns:api1="clr-namespace:MvvmTest1.Test1.Api1"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <DataTemplate DataType = "{x:Type api1:Api1ViewModel}">
+            <api1:Api1View/>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <DockPanel Margin="20" >
+
+        <DockPanel DockPanel.Dock="Top">
+            <TextBlock Margin="10,2" Text="IP" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            <TextBox Margin="10,2" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Path=Ip, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Margin="10,2" HorizontalAlignment="Left" Text="Port" VerticalAlignment="Center" />
+            <TextBox Margin="10,2" Width="50" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Path=Port, UpdateSourceTrigger=PropertyChanged}" />
+            <Button HorizontalAlignment="Left" Margin="10,2" VerticalAlignment="Center"
+                    Content="Check Connection" 
+                    Command="{Binding CheckConnectionCommand}"
+                    IsDefault="True" Width="100" />
+        </DockPanel>
+
+        <DockPanel DockPanel.Dock="Top" HorizontalAlignment="Stretch" LastChildFill="True" VerticalAlignment="Top" Background="LightCyan" >
+            <ContentControl Content="{Binding Api1CurrentPageViewModel}" />
+        </DockPanel>
+
+        <DockPanel DockPanel.Dock="Bottom" LastChildFill="True" Background="WhiteSmoke" >
+            <DataGrid DockPanel.Dock="Bottom" VerticalAlignment="Bottom"
+                  ItemsSource="{Binding WorkingItems}" SelectedItem="{Binding SelectedItem}" 
+                  HorizontalAlignment="Left" Margin="5,0,0,0" ColumnWidth="*" IsReadOnly="True" Height="300" />
+        </DockPanel>
+
+        <DockPanel DockPanel.Dock="Bottom" HorizontalAlignment="Right" LastChildFill="True" >
+            <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,2" 
+                    Content="Add" Command="{Binding AddCommand}"
+                    IsDefault="True" Width="100" />
+            
+            <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,2" 
+                    Content="Cancel" Command="{Binding CancelCommand}"
+                    IsDefault="True" Width="100" />
+
+            <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,2" 
+                    Content="Refresh" Command="{Binding RefreshCommand}"
+                    IsDefault="True" Width="100" />
+            
+            <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,2" 
+                    Content="Refresh All" Command="{Binding RefreshAllCommand}"
+                    IsDefault="True" Width="100" />
+            
+            <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,2" 
+                    Content="Clear" Command="{Binding ClearCommand}"
+                    IsDefault="True" Width="100" />
+        </DockPanel>
+
+    </DockPanel>
+</UserControl>
