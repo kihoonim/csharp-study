@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -15,25 +16,25 @@ namespace MvvmTest1.Total
     public class TotalViewModel : ObservableObject, IPageViewModel
     {
         public ObservableCollection<ContainerInfo> ContainerInfos { get; set; }
-        public RelayCommand CheckCommand { get; set; }
-        public RelayCommand ClearCommand { get; set; }
-        public RelayCommand LogCommand { get; set; }
+        public ICommand AddCommand { get; set; }
+        public ICommand ClearCommand { get; set; }
+        public ICommand LogCommand { get; set; }
 
         public TotalViewModel()
         {
             ContainerInfos = new ObservableCollection<ContainerInfo>();
 
-            CheckCommand = new RelayCommand(Check);
+            AddCommand = new RelayCommand(Add);
             ClearCommand = new RelayCommand(Clear);
             LogCommand = new RelayCommand(Log);
 
             Ip = "127.0.0.1";
-            DateTimeValue = "2020-04-30-15-00-00";
-        }
 
-        public string Name
-        {
-            get { return "Total"; }
+            var utcNow = DateTime.UtcNow;
+            var utcYesterday = utcNow.AddDays(-1);
+
+            SinceDateTimeValue = utcYesterday.ToString("yyyy-MM-dd-HH-mm-ss");
+            UntilDateTimeValue = utcNow.ToString("yyyy-MM-dd-HH-mm-ss");
         }
 
         string _nodeName;
@@ -70,19 +71,36 @@ namespace MvvmTest1.Total
             }
         }
 
-        string _dateTimeValue;
-        public string DateTimeValue
+        string _sinceDateTimeValue;
+        public string SinceDateTimeValue
         {
             get
             {
-                return _dateTimeValue;
+                return _sinceDateTimeValue;
             }
             set
             {
-                if (_dateTimeValue != value)
+                if (_sinceDateTimeValue != value)
                 {
-                    _dateTimeValue = value;
-                    RaisePropertyChanged("DateTimeValue");
+                    _sinceDateTimeValue = value;
+                    RaisePropertyChanged("SinceDateTimeValue");
+                }
+            }
+        }
+
+        string _untilDateTimeValue;
+        public string UntilDateTimeValue
+        {
+            get
+            {
+                return _untilDateTimeValue;
+            }
+            set
+            {
+                if (_untilDateTimeValue != value)
+                {
+                    _untilDateTimeValue = value;
+                    RaisePropertyChanged("UntilDateTimeValue");
                 }
             }
         }
@@ -104,89 +122,107 @@ namespace MvvmTest1.Total
             }
         }
 
-        private void Check(object parameter)
+        private void Add(object parameter)
         {
-            string url = $"http://{Ip}:4243/containers/json";
-            string responseText = string.Empty;
-
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "GET";
-            request.Timeout = 30 * 1000;
-
-            using (HttpWebResponse resp = (HttpWebResponse)request.GetResponse())
+            try
             {
-                HttpStatusCode status = resp.StatusCode;
-                if (status != HttpStatusCode.OK)
+                string url = $"http://{Ip}:4243/containers/json";
+                string responseText = string.Empty;
+
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "GET";
+                request.Timeout = 30 * 1000;
+
+                using (HttpWebResponse resp = (HttpWebResponse)request.GetResponse())
                 {
-                    MessageBox.Show("");
-                    return;
+                    HttpStatusCode status = resp.StatusCode;
+                    if (status != HttpStatusCode.OK)
+                    {
+                        MessageBox.Show("");
+                        return;
+                    }
+
+                    Stream respStream = resp.GetResponseStream();
+                    using (StreamReader sr = new StreamReader(respStream))
+                    {
+                        responseText = sr.ReadToEnd();
+                    }
+
                 }
 
-                Stream respStream = resp.GetResponseStream();
-                using (StreamReader sr = new StreamReader(respStream))
-                {
-                    responseText = sr.ReadToEnd();
-                }
+                List<JObject> jsonList = JsonConvert.DeserializeObject<List<JObject>>(responseText);
 
+                foreach (var item in jsonList)
+                {
+                    ContainerInfos.Add(new ContainerInfo
+                    {
+                        NodeName = NodeName,
+                        Ip = Ip,
+                        Name = item.GetValue("Names")[0].ToString(),
+                        Status = item.GetValue("Status").ToString(),
+                        Id = item.GetValue("Id").ToString()
+                    });
+                }
             }
-
-            List<JObject> jsonList = JsonConvert.DeserializeObject<List<JObject>>(responseText);
-
-            foreach (var item in jsonList)
+            catch (Exception ex)
             {
-                ContainerInfos.Add(new ContainerInfo
-                {
-                    NodeName = NodeName,
-                    Ip = Ip,
-                    Name = item.GetValue("Names")[0].ToString(),
-                    Status = item.GetValue("Status").ToString(),
-                    Id = item.GetValue("Id").ToString()
-                });
+                MessageBox.Show($"Exception Occured\n\n\n Message = {ex.Message}\n\n StackTrace = {ex.StackTrace}");
             }
         }
 
         private void Log(object parameter)
         {
-            if (SelectedContainer is null)
+            try
             {
-                MessageBox.Show("Not Selected");
-                return;
-            }
+                if (SelectedContainer is null)
+                    throw new Exception("Not Selected");
 
-            string[] time = DateTimeValue.Split('-');
+                string[] sinceDateTime = SinceDateTimeValue.Split('-');
+                string[] untilDateTime = UntilDateTimeValue.Split('-');
 
-            var timeSpan = (new DateTime(
-                Int32.Parse(time[0]), Int32.Parse(time[1]), Int32.Parse(time[2]),
-                Int32.Parse(time[3]), Int32.Parse(time[4]), Int32.Parse(time[5])) - new DateTime(1970, 1, 1));
+                var sinceTimeSpan = (new DateTime(
+                    Int32.Parse(sinceDateTime[0]), Int32.Parse(sinceDateTime[1]), 
+                    Int32.Parse(sinceDateTime[2]), Int32.Parse(sinceDateTime[3]), 
+                    Int32.Parse(sinceDateTime[4]), Int32.Parse(sinceDateTime[5])) - new DateTime(1970, 1, 1));
 
-            long total = (long)timeSpan.TotalSeconds;
+                var untilTimeSpan = (new DateTime(
+                   Int32.Parse(untilDateTime[0]), Int32.Parse(untilDateTime[1]),
+                   Int32.Parse(untilDateTime[2]), Int32.Parse(untilDateTime[3]),
+                   Int32.Parse(untilDateTime[4]), Int32.Parse(untilDateTime[5])) - new DateTime(1970, 1, 1));
 
-            string url = $"http://{SelectedContainer.Ip}:4243/containers/{SelectedContainer.Id}/logs?stdout=true&since={total}";
-            string responseText = string.Empty;
+                long since = (long)sinceTimeSpan.TotalSeconds;
+                long until = (long)untilTimeSpan.TotalSeconds;
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "GET";
-            request.Timeout = 30 * 1000;
+                string url = $"http://{SelectedContainer.Ip}:4243/containers/{SelectedContainer.Id}/logs?stdout=true&since={since}&until={until}";
+                string responseText = string.Empty;
 
-            using (HttpWebResponse resp = (HttpWebResponse)request.GetResponse())
-            {
-                HttpStatusCode status = resp.StatusCode;
-                if (status != HttpStatusCode.OK)
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "GET";
+                request.Timeout = 30 * 1000;
+
+                using (HttpWebResponse resp = (HttpWebResponse)request.GetResponse())
                 {
-                    MessageBox.Show("");
-                    return;
+                    HttpStatusCode status = resp.StatusCode;
+                    if (status != HttpStatusCode.OK)
+                    {
+                        MessageBox.Show("");
+                        return;
+                    }
+
+                    Stream respStream = resp.GetResponseStream();
+                    using (StreamReader sr = new StreamReader(respStream))
+                    {
+                        responseText = sr.ReadToEnd();
+                    }
                 }
 
-                Stream respStream = resp.GetResponseStream();
-                using (StreamReader sr = new StreamReader(respStream))
-                {
-                    responseText = sr.ReadToEnd();
-                }
-
+                var win = new Log { DataContext = new LogViewModel { Message = responseText } };
+                win.Show();
             }
-
-            var win = new Log { DataContext = new LogViewModel { Message = responseText} };
-            win.Show();
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Exception Occured\n\n\n Message = {ex.Message}\n\n StackTrace = {ex.StackTrace}");
+            }
         }
 
         private void Clear(object parameter)

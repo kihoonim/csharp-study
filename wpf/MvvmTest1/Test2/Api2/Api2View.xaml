@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     
     <DockPanel Margin="20" >
-        <DockPanel DockPanel.Dock="Top">
+        <DockPanel DockPanel.Dock="Left">
             <StackPanel Orientation="Vertical" DockPanel.Dock="Left" VerticalAlignment="Center" >
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" VerticalAlignment="Center" >
                     <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Option1" VerticalAlignment="Center" />
@@ -21,8 +21,13 @@
             </StackPanel>
 
             <Button Content="Start" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
-                        Command="{Binding Path=Apply}" IsDefault="True" Width="100" />
+                        Command="{Binding ApplyCommand}" IsDefault="True" Width="100" />
         </DockPanel>
 
+        <DockPanel DockPanel.Dock="Right" VerticalAlignment="Top">
+            <Image Source="{Binding Input}"  Width="{Binding InputWitdh}" Height="{Binding InputHeight}" MaxWidth="512" MaxHeight="512" />
+            <Image Source="{Binding Output}" Width="{Binding OutputWitdh}" Height="{Binding OutputHeight}" MaxWidth="512" MaxHeight="512" />
+        </DockPanel>
+        
     </DockPanel>
 </UserControl>

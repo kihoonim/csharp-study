@@ -18,8 +18,11 @@ namespace MvvmTest1
             base.OnStartup(e);
 
             var app = new MainWindow();
+
             var context = new MainWindowViewModel();
+
             app.DataContext = context;
+
             app.Show();
         }
     }

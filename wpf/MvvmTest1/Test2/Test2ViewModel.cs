@@ -46,12 +46,6 @@ namespace MvvmTest1.Test2
             }
         }
 
-        public string Name
-        {
-            get { return "Test2"; }
-        }
-
-
         private IPageViewModel _test2CurrentPageViewModel;
         public IPageViewModel Test2CurrentPageViewModel
         {
@@ -81,10 +75,10 @@ namespace MvvmTest1.Test2
 
         private void Add(object parameter)
         {
-            var win = new Add.Add();
-            var addViewModel = new Add.AddViewModel(win);
-            win.DataContext = addViewModel;
-            win.Show();
+            var view = new Add.Add();
+            var addViewModel = new Add.AddViewModel(view);
+            view.DataContext = addViewModel;
+            view.Show();
         }
     }
 }

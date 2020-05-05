@@ -48,6 +48,30 @@
             <DataGrid DockPanel.Dock="Top" Margin="5,0,0,0" 
                   ItemsSource="{Binding Grid1s}" SelectedItem="{Binding SelectedGrid1}" 
                   ColumnWidth="*" IsReadOnly="True" Height="100" />
+        </DockPanel>
+
+        <DockPanel DockPanel.Dock="Top">
+            <Button HorizontalAlignment="Left" Margin="10,2" VerticalAlignment="Center"
+                    Content="Check" 
+                    Command="{Binding CheckCommand}"
+                    IsDefault="True" Width="100" />
+            <Button HorizontalAlignment="Left" Margin="10,2" VerticalAlignment="Center"
+                    Content="Clear" 
+                    Command="{Binding ClearCommand}"
+                    IsDefault="True" Width="100" />
+
+            <Button DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="10,2" VerticalAlignment="Center"
+                    Content="Remove" 
+                    Command="{Binding RemoveCommand}"
+                    IsDefault="True" Width="100" />
+            <Button DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="10,2" VerticalAlignment="Center"
+                    Content="Add" 
+                    Command="{Binding AddCommand}"
+                    IsDefault="True" Width="100" />
+        </DockPanel>
+
+
+        <DockPanel DockPanel.Dock="Top">
 
             <DataGrid DockPanel.Dock="Top" Margin="5,0,0,0" 
                   ItemsSource="{Binding Grid2s}" SelectedItem="{Binding SelectedGrid2}" 
@@ -59,7 +83,7 @@
             <ComboBox ItemsSource="{Binding Path=Apis}" SelectedItem="{Binding SelectedApi}" Margin="5,0,0,5" VerticalAlignment="Top"/>
         </DockPanel>
 
-        <DockPanel DockPanel.Dock="Top" Margin="5" HorizontalAlignment="Stretch" LastChildFill="True" VerticalAlignment="Top" Background="LightCyan" >
+        <DockPanel DockPanel.Dock="Top" Margin="5" HorizontalAlignment="Stretch" LastChildFill="True" VerticalAlignment="Stretch" Background="WhiteSmoke" >
             <ContentControl Content="{Binding Test2CurrentPageViewModel}" />
         </DockPanel>
 

@@ -23,22 +23,18 @@
             <TextBlock Margin="10,2" HorizontalAlignment="Left" Text="Port" VerticalAlignment="Center" />
             <TextBox Margin="10,2" Width="50" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Path=Port, UpdateSourceTrigger=PropertyChanged}" />
             <Button HorizontalAlignment="Left" Margin="10,2" VerticalAlignment="Center"
-                    Content="Check Connection" 
-                    Command="{Binding CheckConnectionCommand}"
+                    Content="Check" 
+                    Command="{Binding CheckCommand}"
                     IsDefault="True" Width="100" />
-        </DockPanel>
-
-        <DockPanel DockPanel.Dock="Top" HorizontalAlignment="Stretch" LastChildFill="True" VerticalAlignment="Top" Background="LightCyan" >
-            <ContentControl Content="{Binding Api1CurrentPageViewModel}" />
         </DockPanel>
 
         <DockPanel DockPanel.Dock="Bottom" LastChildFill="True" Background="WhiteSmoke" >
             <DataGrid DockPanel.Dock="Bottom" VerticalAlignment="Bottom"
                   ItemsSource="{Binding WorkingItems}" SelectedItem="{Binding SelectedItem}" 
-                  HorizontalAlignment="Left" Margin="5,0,0,0" ColumnWidth="*" IsReadOnly="True" Height="300" />
+                  HorizontalAlignment="Left" Margin="5,0,0,0" ColumnWidth="*" IsReadOnly="True" Height="500" />
         </DockPanel>
 
-        <DockPanel DockPanel.Dock="Bottom" HorizontalAlignment="Right" LastChildFill="True" >
+        <DockPanel DockPanel.Dock="Bottom" HorizontalAlignment="Right">
             <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,2" 
                     Content="Add" Command="{Binding AddCommand}"
                     IsDefault="True" Width="100" />
@@ -60,5 +56,9 @@
                     IsDefault="True" Width="100" />
         </DockPanel>
 
+        <DockPanel DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="WhiteSmoke" >
+            <ContentControl Content="{Binding Api1CurrentPageViewModel}" />
+        </DockPanel>
+        
     </DockPanel>
 </UserControl>

@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MvvmTest1.Test2.Add"
         mc:Ignorable="d"
-        Title="Add" Height="450" Width="800">
-    <Grid>
+        Title="Add" Height="500" Width="300">
+
+    <DockPanel Margin="10, 2">
+
         <DockPanel DockPanel.Dock="Top">
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" VerticalAlignment="Top" >
                 <StackPanel Orientation="Vertical" DockPanel.Dock="Left" VerticalAlignment="Center" >
@@ -23,7 +25,11 @@
             <Button Content="Add" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Top"
                         Command="{Binding Path=AddCommand}" IsDefault="True" Width="100" />
         </DockPanel>
-        
-        <ProgressBar Minimum="0" Maximum="100" Name="pbStatus" />
-    </Grid>
+
+        <DockPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="300" Height="10">
+            <ProgressBar IsIndeterminate="{Binding Path=Indeterminate}" />
+        </DockPanel>
+
+    </DockPanel>
+
 </Window>

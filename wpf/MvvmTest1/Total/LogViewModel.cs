@@ -8,9 +8,7 @@ namespace MvvmTest1.Total
 {
     public class LogViewModel : ObservableObject, IPageViewModel
     {
-        public LogViewModel()
-        {
-        }
+        public LogViewModel() { }
 
         public string Name
         {

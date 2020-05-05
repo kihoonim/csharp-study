@@ -9,7 +9,7 @@
         xmlns:test2="clr-namespace:MvvmTest1.Test2"
         mc:Ignorable="d"
         WindowStyle="SingleBorderWindow" ResizeMode="CanResize" WindowState="Maximized"
-        Title="MVVM Test" Height="450" Width="800">
+        Title="MVVM Test" Height="450" Width="800" >
 
     <Window.Resources>
         <DataTemplate DataType = "{x:Type total:TotalViewModel}">
@@ -26,18 +26,19 @@
     </Window.Resources>
 
     <DockPanel>
-        <Border DockPanel.Dock="Left" BorderBrush="Black" BorderThickness="0,0,1,0">
-            <ItemsControl ItemsSource="{Binding PageViewModels}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Button Content="{Binding Name}"
-                                Command="{Binding DataContext.ChangePageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                                CommandParameter="{Binding }"
-                                Margin="2,5" Width="100" Height="50" />
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </Border>
+        <DockPanel DockPanel.Dock="Left" Background="LightSlateGray">
+            <StackPanel Orientation="Vertical" DockPanel.Dock="Left" VerticalAlignment="Top">
+                <Button Content="Total" Command="{Binding ChangePageCommand}" CommandParameter="Total" 
+                    HorizontalAlignment="Left" Margin="2,5" Width="100" Height="50" 
+                    BorderThickness="0" Background="LightGray" FontSize="20" />
+                <Button Content="Test1" Command="{Binding ChangePageCommand}" CommandParameter="Test1" 
+                    HorizontalAlignment="Left" Margin="2,5" Width="100" Height="50" 
+                    BorderThickness="0" Background="LightGray" FontSize="20" />
+                <Button Content="Test2" Command="{Binding ChangePageCommand}" CommandParameter="Test2" 
+                    HorizontalAlignment="Left" Margin="2,5" Width="100" Height="50" 
+                    BorderThickness="0" Background="LightGray" FontSize="20" />
+            </StackPanel>
+        </DockPanel>
 
         <ContentControl Content="{Binding CurrentPageViewModel}" />
     </DockPanel>

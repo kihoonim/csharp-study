@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:MvvmTest1.Test2.Api1"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    
     <DockPanel Margin="20" >
         <DockPanel DockPanel.Dock="Top">
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" VerticalAlignment="Top" >
@@ -20,7 +21,7 @@
                 </StackPanel>
             </StackPanel>
 
-            <Button Content="Add" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Top"
+            <Button Content="Add" Margin="10,2" HorizontalAlignment="Center" VerticalAlignment="Bottom"
                         Command="{Binding Path=AddCommand}" IsDefault="True" Width="100" />
         </DockPanel>
     </DockPanel>

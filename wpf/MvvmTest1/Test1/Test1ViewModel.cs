@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace MvvmTest1.Test1
 {
@@ -12,11 +13,13 @@ namespace MvvmTest1.Test1
     {
         public ObservableCollection<string> Apis { get; set; }
         public ObservableCollection<WorkingItem> WorkingItems { get; set; }
+        public ICommand CheckCommand { get; set; }
+        public ICommand ClearCommand { get; set; }
 
-        public RelayCommand CheckConnectionCommand { get; set; }
-       
         public Test1ViewModel()
         {
+            Port = 10;
+
             Apis = new ObservableCollection<string>
             {
                 "API1", "API2", "API3"
@@ -24,10 +27,10 @@ namespace MvvmTest1.Test1
 
             WorkingItems = new ObservableCollection<WorkingItem>();
 
-            CheckConnectionCommand = new RelayCommand(CheckConnection);
-            Api1CurrentPageViewModel = new Api1.Api1ViewModel(WorkingItems);
+            CheckCommand = new RelayCommand(Check);
+            ClearCommand = new RelayCommand(Clear);
 
-            Port = 10;
+            Api1CurrentPageViewModel = new Api1.Api1ViewModel(WorkingItems);
         }
 
         string _ip;
@@ -81,12 +84,6 @@ namespace MvvmTest1.Test1
             }
         }
 
-        public string Name
-        {
-            get { return "Test1"; }
-        }
-
-
         private IPageViewModel _api1CurrentPageViewModel;
         public IPageViewModel Api1CurrentPageViewModel
         {
@@ -104,9 +101,14 @@ namespace MvvmTest1.Test1
             }
         }
 
-        private void CheckConnection(object parameter)
+        private void Check(object parameter)
         {
             MessageBox.Show($"{Ip}:{Port}");
+        }
+
+        private void Clear(object parameter)
+        {
+            WorkingItems.Clear();
         }
     }
 }

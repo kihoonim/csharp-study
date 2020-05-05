@@ -5,8 +5,5 @@ using System.Text;
 
 namespace MvvmTest1
 {
-    public interface IPageViewModel
-    {
-        string Name { get; }
-    }
+    public interface IPageViewModel { }
 }

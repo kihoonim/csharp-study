@@ -4,21 +4,17 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace MvvmTest1.Test2.Api1
 {
     public class Api1ViewModel : ObservableObject, IPageViewModel
     {
-        public RelayCommand AddCommand { get; set; }
+        public ICommand AddCommand { get; set; }
 
         public Api1ViewModel()
         {
             AddCommand = new RelayCommand(Add);
-        }
-
-        public string Name
-        {
-            get { return "Api1"; }
         }
 
         private string _id;
