@@ -1,0 +1,39 @@
+﻿<Window x:Class="PolygonRendering.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PolygonRendering"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Canvas Height="300" Width="300">
+
+            <!-- Draws a triangle with a blue interior. -->
+            <Polygon Points="10,110 60,10 110,110" 
+        Fill="Blue" />
+
+            <!-- Draws a triangle with a blue interior and a black outline. 
+           The Canvas.Top setting moves the Polygon down 150 pixels. -->
+            <Polygon Points="10,110 60,10 110,110"
+        Fill="Blue"
+        Stroke="Black" StrokeThickness="4"
+        Canvas.Top="150" />
+
+            <!-- Draws another triangle with a blue interior.
+           The Canvas.Left setting moves the Polygon 150 pixels to the right. -->
+            <Polygon Points="10,110 110,110 110,10"
+        Fill="Blue"
+        Canvas.Left="150" />
+
+            <!-- Draws a triangle with a black outline. 
+           The Canvas.Left and Canvas.Top settings move 
+           the Polygon down 150 pixels and 150 pixels to the right.-->
+            <Polygon Points="10,110 110,110 110,10"
+        Stroke="Black" StrokeThickness="4"
+        Canvas.Left="150" Canvas.Top="150" />
+
+
+        </Canvas>
+    </Grid>
+</Window>
