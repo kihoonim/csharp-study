@@ -5,35 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PolygonRendering"
         mc:Ignorable="d"
+        WindowStyle="SingleBorderWindow" ResizeMode="CanResize" WindowState="Maximized"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Canvas Height="300" Width="300">
+    
+    <DockPanel>
+        <Button Content="Button1" Command="{Binding AddCommand}"
+                    HorizontalAlignment="Left" Margin="2,5" Width="100" Height="50" 
+                    BorderThickness="2" FontSize="20" />
 
-            <!-- Draws a triangle with a blue interior. -->
-            <Polygon Points="10,110 60,10 110,110" 
-        Fill="Blue" />
-
-            <!-- Draws a triangle with a blue interior and a black outline. 
-           The Canvas.Top setting moves the Polygon down 150 pixels. -->
-            <Polygon Points="10,110 60,10 110,110"
-        Fill="Blue"
-        Stroke="Black" StrokeThickness="4"
-        Canvas.Top="150" />
-
-            <!-- Draws another triangle with a blue interior.
-           The Canvas.Left setting moves the Polygon 150 pixels to the right. -->
-            <Polygon Points="10,110 110,110 110,10"
-        Fill="Blue"
-        Canvas.Left="150" />
-
-            <!-- Draws a triangle with a black outline. 
-           The Canvas.Left and Canvas.Top settings move 
-           the Polygon down 150 pixels and 150 pixels to the right.-->
-            <Polygon Points="10,110 110,110 110,10"
-        Stroke="Black" StrokeThickness="4"
-        Canvas.Left="150" Canvas.Top="150" />
-
-
-        </Canvas>
-    </Grid>
+        <ItemsControl ItemsSource="{Binding CanvasSource}" Background="White">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Width="800" Height="800">
+                        <Canvas.Background>
+                            <VisualBrush TileMode="Tile" Viewport="0 0 50 50" ViewportUnits="Absolute" 
+                                         Viewbox="0 0 50 50" ViewboxUnits="Absolute">
+                                <VisualBrush.Visual>
+                                    <Rectangle Width="50" Height="50" Stroke="Darkgray" 
+                                               StrokeThickness="1" StrokeDashArray="2 2" />
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </Canvas.Background>
+                    </Canvas>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Path Stroke="{Binding color}" StrokeThickness="{Binding thickness}" Data="{Binding shape}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </DockPanel>
 </Window>
