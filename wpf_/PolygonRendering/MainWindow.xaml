@@ -7,11 +7,17 @@
         mc:Ignorable="d"
         WindowStyle="SingleBorderWindow" ResizeMode="CanResize" WindowState="Maximized"
         Title="MainWindow" Height="450" Width="800">
-    
+
     <DockPanel>
-        <Button Content="Button1" Command="{Binding AddCommand}"
+        <DataGrid DockPanel.Dock="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                  ItemsSource="{Binding ContainerInfos}" SelectedItem="{Binding SelectedContainer}" 
+                  Margin="5,0,0,0" ColumnWidth="*" IsReadOnly="True" Height="300" />
+        
+        <Button Command="{Binding AddCommand}"
                     HorizontalAlignment="Left" Margin="2,5" Width="100" Height="50" 
-                    BorderThickness="2" FontSize="20" />
+                    BorderThickness="2" FontSize="20" >
+            <StackPanel Height="100" Width="100"/>
+        </Button>
 
         <ItemsControl ItemsSource="{Binding CanvasSource}" Background="White">
             <ItemsControl.ItemsPanel>

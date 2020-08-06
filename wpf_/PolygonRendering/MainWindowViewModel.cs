@@ -14,7 +14,7 @@ namespace PolygonRendering
 {
     public class MainWindowViewModel : ObservableObject
     {
-        public ObservableCollection<DrawObject> CanvasSource { get; set; }
+        public ObservableCollection<List<DrawObject>> CanvasSource { get; set; }
         public ICommand AddCommand { get; set; }
 
         public class DrawObject
@@ -27,7 +27,7 @@ namespace PolygonRendering
 
         public MainWindowViewModel()
         {
-            CanvasSource = new ObservableCollection<DrawObject>();
+            CanvasSource = new ObservableCollection<List<DrawObject>>();
             AddCommand = new RelayCommand(Add);
         }
 
@@ -45,7 +45,10 @@ namespace PolygonRendering
                     new LineSegment(new Point(400, 100), true),
                 }, true)));
 
-            CanvasSource.Add(new DrawObject { color = new SolidColorBrush(Colors.Red), shape = shape1, thickness = 1 });
+            var polygons1 = new List<DrawObject>();
+            polygons1.Add(new DrawObject { color = new SolidColorBrush(Colors.Red), shape = shape1, thickness = 1 });
+
+            CanvasSource.Add(polygons1);
 
             var shape2 = new PathGeometry();
            
@@ -53,7 +56,11 @@ namespace PolygonRendering
                 new Point(200, 100),
                 new List<LineSegment>() { new LineSegment(new Point(100, 200), true) }, false)));
 
-            CanvasSource.Add(new DrawObject { color = new SolidColorBrush(Colors.Blue), shape = shape2, thickness = 1 });
+            var polygons2 = new List<DrawObject>();
+            polygons2.Add(new DrawObject { color = new SolidColorBrush(Colors.Blue), shape = shape2, thickness = 1 });
+
+            CanvasSource.Add(polygons2);
+
         }
     }
 }
