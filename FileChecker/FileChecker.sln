@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileChecker.Listener", "FileChecker.Listener\FileChecker.Listener.csproj", "{79F6A287-4A81-4AD7-AA58-3BE2DD115382}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{79F6A287-4A81-4AD7-AA58-3BE2DD115382}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79F6A287-4A81-4AD7-AA58-3BE2DD115382}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79F6A287-4A81-4AD7-AA58-3BE2DD115382}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79F6A287-4A81-4AD7-AA58-3BE2DD115382}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {49CE85A3-F113-4810-9957-BFB0A2F15CC6}
+	EndGlobalSection
+EndGlobal

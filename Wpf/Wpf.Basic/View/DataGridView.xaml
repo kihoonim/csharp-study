@@ -1,0 +1,122 @@
+﻿<UserControl x:Class="Wpf.Basic.View.DataGridView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Wpf.Basic.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <!--<UserControl.InputBindings>
+        <KeyBinding Command="{Binding RefreshCommand}" Key="F5"/>
+    </UserControl.InputBindings>-->
+    
+    <UserControl.Resources>
+        <!-- DataGrid style -->
+        <Style x:Key="DataGridStyle1" TargetType="{x:Type DataGrid}">
+            <Setter Property="ColumnHeaderStyle" Value="{DynamicResource ColumnHeaderStyle1}"/>
+        </Style>
+        <!-- DataGridColumnHeader style -->
+        <Style x:Key="ColumnHeaderStyle1" TargetType="DataGridColumnHeader">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="12" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="ToolTip" Value="Click to sort."/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0">
+            <DockPanel>
+                <DataGrid HorizontalAlignment="Stretch" 
+                          VerticalAlignment="Stretch" 
+                          ItemsSource="{Binding GridData}" 
+                          SelectedItem="{Binding SelectedRows}" 
+                          Style="{DynamicResource DataGridStyle1}"  
+                          SelectionMode="Extended" 
+                          Margin="2,2" ColumnWidth="*" 
+                          IsReadOnly="False" 
+                          AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Column1" Binding="{Binding Column1}"/>
+                        <DataGridTextColumn Header="Column2" Binding="{Binding Column2}" />
+                        <DataGridTextColumn Header="Column3" Binding="{Binding Column3}"/>
+                        <DataGridCheckBoxColumn Header="Column4" Binding="{Binding Column4}"/>
+                    </DataGrid.Columns>
+
+                    <DataGrid.InputBindings>
+                        <KeyBinding Key="F5" Command="{Binding RefreshCommand}"/>
+                        <KeyBinding Key="Delete" Command="{Binding DeleteCommand}"/>
+                    </DataGrid.InputBindings>
+
+                </DataGrid>
+            </DockPanel>
+        </Border>
+
+        <Border Grid.Column="1">
+            <DockPanel>
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   Text="Column1"
+                                   Margin="10,2"/>
+                        <TextBox VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                 Text="{Binding NewRow.Column1}"
+                                 Margin="10,2" Width="100"/>
+                    </StackPanel>
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   Text="Column2"
+                                   Margin="10,2"/>
+                        <TextBox VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                 Text="{Binding NewRow.Column2}"
+                                 Margin="10,2" Width="100"/>
+                    </StackPanel>
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" 
+                                   Text="Column3"
+                                   Margin="10,2"/>
+                        <TextBox VerticalAlignment="Center" 
+                                 HorizontalAlignment="Center" 
+                                 Text="{Binding NewRow.Column3}"
+                                 Margin="10,2" Width="100"/>
+                    </StackPanel>
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" 
+                                   Text="Column4"
+                                   Margin="10,2"/>
+                        <CheckBox VerticalAlignment="Center" 
+                                  HorizontalAlignment="Center" 
+                                  IsChecked="{Binding NewRow.Column4}"
+                                  Margin="10,2" Width="100"/>
+                    </StackPanel>
+                    <Button VerticalAlignment="Bottom" 
+                            HorizontalAlignment="Stretch" 
+                            Content="Add" 
+                            ToolTip="Add Row"
+                            Command="{Binding Path=AddRowCommand}" 
+                            CommandParameter="DATAGRID" 
+                            Margin="2,2" Height="20" 
+                            BorderThickness="0" 
+                            Background="LightGray" 
+                            FontSize="10" />
+                </DockPanel>
+            </DockPanel>
+        </Border>
+
+    </Grid>
+</UserControl>
