@@ -5,7 +5,7 @@ using Wpf.Mvvm;
 
 namespace Wpf.Basic.Data
 {
-    public class DataGridTable : ObservableObject, ICloneable
+    public class DataGridRow : ObservableObject, ICloneable
     {
         public string _column1;
         public string Column1
@@ -63,7 +63,12 @@ namespace Wpf.Basic.Data
             }
         }
 
-        public DataGridTable(DataGridTable other)
+        public DataGridRow()
+        {
+
+        }
+
+        public DataGridRow(DataGridRow other)
         {
 
         }

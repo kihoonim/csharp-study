@@ -12,9 +12,9 @@ namespace Wpf.Basic.View
     public class DataGridViewModel : IPageViewModel
     {
         #region Data
-        public ObservableCollection<DataGridTable> GridData { get; set; }
-        public ObservableCollection<DataGridTable> SelectedRows { get; set; }
-        public DataGridTable NewRow { get; set; }
+        public ObservableCollection<DataGridRow> GridData { get; set; }
+        public ObservableCollection<DataGridRow> SelectedRows { get; set; }
+        public DataGridRow NewRow { get; set; }
         #endregion
 
         #region Command
@@ -25,9 +25,9 @@ namespace Wpf.Basic.View
 
         public DataGridViewModel()
         {
-            GridData = new ObservableCollection<DataGridTable>();
-            SelectedRows = new ObservableCollection<DataGridTable>();
-            NewRow = new DataGridTable();
+            GridData = new ObservableCollection<DataGridRow>();
+            SelectedRows = new ObservableCollection<DataGridRow>();
+            NewRow = new DataGridRow();
             AddRowCommand = new RelayCommand(AddRow);
             RefreshCommand = new RelayCommand(Refresh);
             DeleteCommand = new RelayCommand(Delete);
@@ -35,7 +35,7 @@ namespace Wpf.Basic.View
 
         public void AddRow(object parameter)
         {
-            GridData.Add(new DataGridTable(NewRow));
+            GridData.Add(new DataGridRow(NewRow));
         }
 
         public void Refresh(object parameter)

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace Rest.Server
+namespace Http.Server.Basic
 {
     class Program
     {
@@ -35,7 +35,7 @@ namespace Rest.Server
                 response.ContentLength64 = buffer.Length;
                 output.Write(buffer, 0, buffer.Length);
             }
-            
+
             // You must close the output stream.
             output.Close();
             listener.Stop();

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace Rest.Server.Helper
+namespace Http.Core
 {
     public class HttpService
     {
