@@ -65,8 +65,6 @@ namespace Sqlite.Basic
                     SET value = 'dirty'
                 ";
                 updateCommand.ExecuteNonQuery();
-
-                using (secon)
             }
         }
 
