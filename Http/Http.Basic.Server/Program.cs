@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace Http.Server.Basic
+namespace Http.Basic.Server
 {
     class Program
     {

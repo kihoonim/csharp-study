@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basic1", "Basic1\Basic1.csproj", "{D17D3837-ECAA-4189-B94D-29EDA44EBDD6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataflowEditor", "DataflowEditor\DataflowEditor.csproj", "{9176C53E-588D-40D4-BA06-695D0A2826FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D17D3837-ECAA-4189-B94D-29EDA44EBDD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D17D3837-ECAA-4189-B94D-29EDA44EBDD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D17D3837-ECAA-4189-B94D-29EDA44EBDD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D17D3837-ECAA-4189-B94D-29EDA44EBDD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9176C53E-588D-40D4-BA06-695D0A2826FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9176C53E-588D-40D4-BA06-695D0A2826FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9176C53E-588D-40D4-BA06-695D0A2826FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9176C53E-588D-40D4-BA06-695D0A2826FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {C145AC76-4EDC-4CAC-BEFD-1095BD0629AF}
+		SolutionGuid = {1F08FA36-0C78-4F96-B3C5-867A95EF036F}
 	EndGlobalSection
 EndGlobal

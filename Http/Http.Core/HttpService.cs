@@ -25,9 +25,9 @@ namespace Http.Core
             _listener.Close();
         }
 
-        public void RegisterEndPoints(string endPoint, Action<> action)
-        {
+        //public void RegisterEndPoints(string endPoint, Action<> action)
+        //{
 
-        }
+        //}
     }
 }

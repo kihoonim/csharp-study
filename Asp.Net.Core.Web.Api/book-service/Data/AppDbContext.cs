@@ -20,6 +20,7 @@ namespace book_service.Data
         //}
 
         public DbSet<Book> Books { get; set;}
+        public DbSet<Product> Products { get; set; }
         public DbSet<Log> Logs { get; set; }
     }
 }

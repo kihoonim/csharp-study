@@ -1,5 +1,4 @@
 ﻿using book_service.Data.Models;
-using book_service.Data.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +15,7 @@ namespace book_service.Data.Services
             _context = context;
         }
 
-        public void AddBook(BookVM book)
+        public int AddBook(BookDTO book)
         {
             var _book = new Book
             {
@@ -32,13 +31,44 @@ namespace book_service.Data.Services
             };
 
             _context.Books.Add(_book);
-            _context.SaveChanges();
+
+            return _context.SaveChanges();
+        }
+
+        public async Task<int> AddBookAsync(BookDTO book)
+        {
+            var _book = new Book
+            {
+                Title = book.Title,
+                Description = book.Description,
+                IsRead = book.IsRead,
+                DateRead = book.IsRead ? book.DateRead.Value : null,
+                Rate = book.IsRead ? book.Rate.Value : null,
+                Genre = book.Genre,
+                Author = book.Author,
+                CoverUrl = book.CoverUrl,
+                DateAdded = DateTime.Now
+            };
+
+            _context.Books.Add(_book);
+
+            int row = await _context.SaveChangesAsync();
+            
+            return row;
         }
 
         public List<Book> GetAllBooks() => _context.Books.ToList();
+        public IAsyncEnumerable<Book> GetAllBooksAsync() => _context.Books.AsAsyncEnumerable();
+
         public Book GetBookById(int bookId) => _context.Books.FirstOrDefault(n => n.Id == bookId);
     
-        public Book UpdateBookById(int bookId, BookVM book)
+        public bool TryGetBook(int id, out Book book)
+        {
+            book = _context.Books.Find(id);
+            return (book != null);
+        }
+
+        public Book UpdateBookById(int bookId, BookDTO book)
         {
             var _book = _context.Books.FirstOrDefault(n => n.Id == bookId);
 

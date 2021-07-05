@@ -35,7 +35,10 @@ namespace book_service
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.RespectBrowserAcceptHeader = true;
+            }).AddXmlSerializerFormatters();
 
             // Configure DBContext with SQL
             // Added : 
@@ -44,19 +47,20 @@ namespace book_service
             // Configure the Services
             // Added : 
             services.AddTransient<BooksService>();
-            
+            services.AddTransient<ProductService>();
+
             services.AddTransient<CountService>();
             //services.AddSingleton<CountService>();
             //services.AddScoped<CountService>();
-
-            //services.AddTransient<ChildCountService>();
+            services.AddTransient<ChildCountService>();
             //services.AddSingleton<ChildCountService>();
-            services.AddScoped<ChildCountService>();
+            //services.AddScoped<ChildCountService>();
 
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "book_service", Version = "v1" });
+                //c.OperationFilter<HeaderFilter>();
             });
         }
 
@@ -71,11 +75,8 @@ namespace book_service
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
